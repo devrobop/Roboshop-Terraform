@@ -1,57 +1,57 @@
-# name: Provision Roboshop Infrastructure
-# on: [workflow_dispatch]
-# jobs:
-#   DEV-PLAN:
-#     runs-on: self-hosted
-#     steps:
-#       - uses: actions/checkout@v4
-#       - name: Terraform init
-#       - run: terraform init -backend-config=env-dev/state.tfvars
-#       - name: Terraform plan
-#       - run: terraform plan -var-file=env-dev/main.tfvars -auto-approve
-
-#   DEV-APPLY:
-#     runs-on: self-hosted
-#     needs: DEV-PLAN
-#     environment: dev
-#     steps:
-#         - uses: actions/checkout@v4
-#         - name: Terraform init
-#         - run: terraform init -backend-config=env-dev/state.tfvars
-#         - name: Terraform Apply
-#         - run: terraform apply -var-file=env-dev/main.tfvars -auto-approve      
-
-#   QA:
-#     runs-on: ubuntu-latest
-#     needs: DEV-APPLY
-#     environment: qa
-#     steps:
-#       - run: echo just a dummy job
-
-#   UAT:
-#     runs-on: ubuntu-latest
-#     needs: QA
-#     environment: uat
-#     steps:
-#       - run: echo just a dummy job  
-
-#   PROD:
-#     runs-on: self-hosted
-#     needs: UAT
-#     environment: prod
-#     steps:
-#       - uses: actions/checkout@v4
-#       - run: terraform init -backend-config=env-prod/state.tfvars
-
-
-
-name: ravi
-run-name: pupil
+name: Provision Roboshop Infrastructure
 on: [workflow_dispatch]
-jobs: 
-  my_first: 
-    runs-on: [ubuntu-latest]
-    steps: 
-      - name: Checking Name
+jobs:
+  DEV-PLAN:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Terraform init
+      - run: terraform init -backend-config=env-dev/state.tfvars
+      - name: Terraform plan
+      - run: terraform plan -var-file=env-dev/main.tfvars -auto-approve
 
-        run: echo dog 
+  DEV-APPLY:
+    runs-on: self-hosted
+    needs: DEV-PLAN
+    environment: dev
+    steps:
+        - uses: actions/checkout@v4
+        - name: Terraform init
+        - run: terraform init -backend-config=env-dev/state.tfvars
+        - name: Terraform Apply
+        - run: terraform apply -var-file=env-dev/main.tfvars -auto-approve      
+
+  QA:
+    runs-on: ubuntu-latest
+    needs: DEV-APPLY
+    environment: qa
+    steps:
+      - run: echo just a dummy job
+
+  UAT:
+    runs-on: ubuntu-latest
+    needs: QA
+    environment: uat
+    steps:
+      - run: echo just a dummy job  
+
+  PROD:
+    runs-on: self-hosted
+    needs: UAT
+    environment: prod
+    steps:
+      - uses: actions/checkout@v4
+      - run: terraform init -backend-config=env-prod/state.tfvars
+
+
+
+#       name: ravi
+# run-name: pupil
+# on: [workflow_dispatch]
+# jobs: 
+#   my_first: 
+#     runs-on: [ubuntu-latest]
+#     steps: 
+#       - name: Checking Name
+
+#         run: echo dog

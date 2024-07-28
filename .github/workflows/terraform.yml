@@ -6,9 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Terraform init
-      - run: terraform init -backend-config=env-dev/state.tfvars
+        run: terraform init -backend-config=env-dev/state.tfvars
       - name: Terraform plan
-      - run: terraform plan -var-file=env-dev/main.tfvars -auto-approve
+        run: terraform plan -var-file=env-dev/main.tfvars -auto-approve
 
   DEV-APPLY:
     runs-on: self-hosted
@@ -17,23 +17,23 @@ jobs:
     steps:
         - uses: actions/checkout@v4
         - name: Terraform init
-        - run: terraform init -backend-config=env-dev/state.tfvars
+          run: terraform init -backend-config=env-dev/state.tfvars
         - name: Terraform Apply
-        - run: terraform apply -var-file=env-dev/main.tfvars -auto-approve      
+          run: terraform apply -var-file=env-dev/main.tfvars -auto-approve      
 
   QA:
     runs-on: ubuntu-latest
     needs: DEV-APPLY
     environment: qa
     steps:
-      - run: echo just a dummy job
+       run: echo just a dummy job
 
   UAT:
     runs-on: ubuntu-latest
     needs: QA
     environment: uat
     steps:
-      - run: echo just a dummy job  
+       run: echo just a dummy job  
 
   PROD:
     runs-on: self-hosted
@@ -41,7 +41,7 @@ jobs:
     environment: prod
     steps:
       - uses: actions/checkout@v4
-      - run: terraform init -backend-config=env-prod/state.tfvars
+        run: terraform init -backend-config=env-prod/state.tfvars
 
 
 

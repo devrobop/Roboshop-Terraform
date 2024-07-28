@@ -50,7 +50,7 @@ run-name: pupil
 on: [workflow_dispatch]
 jobs: 
   my_first: 
-    runs-on: [self-hosted]
+    runs-on: [ubuntu-latest]
     steps: 
       - name: Checking Name
 

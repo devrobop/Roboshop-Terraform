@@ -7,6 +7,8 @@ vpc = {
     app_subnets    = ["10.10.4.0/24","10.10.5.0/24"]
     db_subnets     = ["10.10.6.0/24","10.10.7.0/24"]
     availability_zones = ["us-east-1a","us-east-1b"]
-
+    default_vpc_id   = "vpc-0bd276ee11be2cff2"
+    default_vpc_rt   = "rtb-04a8efc98294a949a"
+    default_vpc_cidr = "172.31.0.0/16"
 
 }  

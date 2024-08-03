@@ -19,7 +19,7 @@ resource "aws_subnet" "web" {
 
 
     tags = {
-        Name = "web-subnet"
+        Name = "web-subnet-${split("-", var.availability_zones[count.index])[2]}"
     }
 }
 

@@ -200,7 +200,7 @@ resource "aws_nat_gateway" "main" {
   subnet_id  = aws_subnet.public.*.id[count.index]
 }
 
-tags = {
-  Name = "nat-gw-$(split("-",var.availablity_zone[count.index])[2]}"
- }
+  tags = {
+    Name = "nat-gw-$(split("-",var.availablity_zone[count.index])[2]}"
+  }
 }

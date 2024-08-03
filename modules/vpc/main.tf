@@ -198,7 +198,7 @@ resource "aws_eip" "ngw-ip" {
 
 resource "aws_nat_gateway" "main" {
   count         = length(var.availability_zones)
-  allocation_id = aws_eip-ngw-ip.*.id[count.index]
+  allocation_id = aws_eip.ngw-ip.*.id[count.index]
   subnet_id     = aws_subnet.public.*.id[count.index]
 
   tags = {

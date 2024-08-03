@@ -186,6 +186,7 @@ resource "aws_internet_gateway" "main" {
   tags = {
     Name = "${var.env}-igw"
   }
+}  
 ## NAT GATEWAY
 
 resource "aws_eip" "ngw" {

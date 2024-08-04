@@ -15,17 +15,17 @@ module "vpc" {
 
 module "ec2" {
   source = "./modules/ec2"
+  instance_type    = each.value["instance_type"]
 
  
-  for_each       = var.ec2
-  name           = each.key
-  instance_type  = each.value["instance_type"]
+  for_each         = var.ec2
+  name             = each.key
   allow_port       = each.value["allow_port"]
-  allow_sg_cidr    = each.value["allow_sg_cidr"]
-  subnet         = module.vpc.subnets["web"][0]
-  vpc_id         = module.vpc.vpc_id
-  env            = var.env
-  bastion_nodes = var.bastion_nodes
+  allow_sg_cidr    = each.value["allow_sg_cidr"]  
+  subnet           = module.vpc.subnets["web"][0]
+  vpc_id           = module.vpc.vpc_id
+  env              = var.env
+  bastion_nodes    = var.bastion_nodes
 }
 
 

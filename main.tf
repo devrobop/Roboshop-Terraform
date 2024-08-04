@@ -13,7 +13,7 @@ module "vpc" {
   default_vpc_cidr   = var.vpc["default_vpc_cidr"]
 }
 
-module "ec2" {
+module "apps" {
   source = "./modules/ec2"
 
 
@@ -22,19 +22,11 @@ module "ec2" {
   instance_type    = each.value["instance_type"]
   allow_port       = each.value["allow_port"]
   allow_sg_cidr    = each.value["allow_sg_cidr"]
-  subnet           = module.vpc.subnet["web"][0]
+  subnet_ids       = module.vpc.subnets[each.value["subnet_ref"]]
+  capacity         = each.value["capacity"]
   vpc_id           = module.vpc.vpc-id
   env              = var.env
-  bastion_nodes    = var.bastion_nodes
+  bastion_nodes    = var.bastion_nodes  
 }
 
 
-
-
-# variable "x" {
-#   default = "web"
-# }
-
-# variable "web" {
-#   value = module.vpc.subnets[var.x]
-# }

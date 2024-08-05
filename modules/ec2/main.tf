@@ -32,26 +32,28 @@ resource "aws_security_group" "allow_tls" {
 }
 
 resource "aws_launch_template" "main" {
-    name = "${var.name}-${var.env}-lt"
-    image_id = data.aws_ami.rhel9.image_id
-    instance_type = var.instance_type
-    vpc_security_group_ids = [aws_security_group.allow_tls.id]
+   count                  = var.asg ? 1 : 0
+   name                   = "${var.name}-${var.env}-lt"
+   image_id               = data.aws_ami.rhel9.image_id
+   instance_type          = var.instance_type
+   vpc_security_group_ids = [aws_security_group.allow_tls.id]
 
-    tags = {
+   tags = {
       Name = "${var.name}-${var.env}-sg"
  } 
   
 }
 
 resource "aws_autoscaling_group" "main" {
-  name                = "${var.name}-${var.env}-asg"
-  desired_capacity    = var.capacity["desired"]
-  max_size            = var.capacity["max"]
-  min_size            = var.capacity["min"]
-  vpc_zone_identifier = var.subnet_ids
+   count                  = var.asg ? 1 : 0
+   name                = "${var.name}-${var.env}-asg"
+   desired_capacity    = var.capacity["desired"]
+   max_size            = var.capacity["max"]
+   min_size            = var.capacity["min"]
+   vpc_zone_identifier = var.subnet_ids
 
   launch_template {
-    id     = aws_launch_template.main.id
+    id     = aws_launch_template.main.*.id[0]
     version = "$Latest"
   }
 
@@ -60,6 +62,23 @@ resource "aws_autoscaling_group" "main" {
    propagate_at_launch = true
    value               = "${var.name}-${var.env}"
   }
+}
+
+resource "aws_instance" "main" {
+   count                 = var.asg ? 0 : 1      
+  ami                    = data.aws_ami.rhel9
+  instance_type          = "var.instance_type"
+  subnet_id              = "var.subnet_ids[0]"
+  vpc_security_group_ids = [aws_security_group.allow_tls.id]
+  user_data              = base64encode(templatefile("${path.module}/userdata.sh",{
+  env = var.env
+  role_name = var.name
+  vault_token =var.vault_token
+}))
+ 
+  tags = {
+      Name = "${var.name}-${var.env}"
+  }  
 
 
 }

@@ -66,7 +66,7 @@ resource "aws_autoscaling_group" "main" {
 
 resource "aws_instance" "main" {
    count                 = var.asg ? 0 : 1      
-  ami                    = data.aws_ami.rhel9
+  ami                    = data.aws_ami.rhel9.image_id
   instance_type          = "var.instance_type"
   subnet_id              = "var.subnet_ids[0]"
   vpc_security_group_ids = [aws_security_group.allow_tls.id]

@@ -13,27 +13,11 @@ module "vpc" {
   default_vpc_cidr   = var.vpc["default_vpc_cidr"]
 }
 
-module "db" {
-  source = "./modules/ec2"
-
-
-  for_each         = var.db
-  name             = each.key
-  instance_type    = each.value["instance_type"]
-  allow_port       = each.value["allow_port"]
-  allow_sg_cidr    = each.value["allow_sg_cidr"]
-  subnet_ids       = module.vpc.subnet[each.value["subnet_ref"]]
-  vpc_id           = module.vpc.vpc-id
-  env              = var.env
-  bastion_nodes    = var.bastion_nodes
-  asg              = false
-  vault_token      = var.vault_token  
- }
 
 
 module "apps" {
 
-  depends_on = [module.db]
+  depends_on = [module.db, module.vpc]
   source = "./modules/ec2"
 
 
@@ -50,3 +34,21 @@ module "apps" {
   asg              = true
   vault_token      = var.vault_token  
 }
+
+module "db" {
+  depends_on = [ module.vpc ]
+  source = "./modules/ec2"
+
+
+  for_each         = var.db
+  name             = each.key
+  instance_type    = each.value["instance_type"]
+  allow_port       = each.value["allow_port"]
+  allow_sg_cidr    = each.value["allow_sg_cidr"]
+  subnet_ids       = module.vpc.subnet[each.value["subnet_ref"]]
+  vpc_id           = module.vpc.vpc-id
+  env              = var.env
+  bastion_nodes    = var.bastion_nodes
+  asg              = false
+  vault_token      = var.vault_token  
+ }

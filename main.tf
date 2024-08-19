@@ -55,4 +55,5 @@ module "db" {
   asg              = false
   vault_token      = var.vault_token
   zone_id          = var.zone_id  
+  
 }

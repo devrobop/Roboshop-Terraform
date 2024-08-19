@@ -15,6 +15,8 @@ vpc = {
 }  
 
 apps = {
+
+
   frontend = {
     subnet_ref   = "web"   
     instance_type = "t3.small" 
@@ -24,7 +26,9 @@ apps = {
       desired = 1
       max     = 1
       min     = 1
-    }   
+    }
+    lb_internal = false
+    lb_subnet_ref = "public"   
   }
   catalogue = {
     subnet_ref   = "app"   
@@ -36,6 +40,8 @@ apps = {
       max     = 1
       min     = 1
     }
+    lb_internal = true
+    lb_subnet_ref = "app"
   } 
 
 }    

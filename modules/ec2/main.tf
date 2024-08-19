@@ -130,11 +130,11 @@ resource "aws_security_group" "load_balancer" {
 
 resource "aws_lb" "main" {
   count = var.asg ? 1 : 0
-  name       = "test-lb-tf"
-  internal = false
-  load_balancer_type = "application"
-  security_groups = [aws_security_group.load-balancer.*.id[count.index]]
-  subnets = var.subnet_ids
+  name                 = "${var.name}-${var.env}"
+  internal             = var.internal
+  load_balancer_type   = "application"
+  security_groups      = [aws_security_group.load-balancer.*.id[count.index]]
+  subnets              = var.lb_subnet_ids
 
  
   tags = {

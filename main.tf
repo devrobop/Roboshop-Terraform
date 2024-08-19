@@ -33,7 +33,9 @@ module "apps" {
   bastion_nodes    = var.bastion_nodes
   asg              = true
   vault_token      = var.vault_token
-  zone_id        = var.zone_id   
+  zone_id          = var.zone_id
+  internal         = each.value["lb_listener"] 
+  lb_subnet_ids    = module.vpc.subnets[each.value["lb_subnet_ref"]]  
 }
 
 module "db" {
@@ -53,4 +55,4 @@ module "db" {
   asg              = false
   vault_token      = var.vault_token
   zone_id          = var.zone_id  
- }
+}

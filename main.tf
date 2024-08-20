@@ -39,7 +39,7 @@ module "apps" {
 }
 
 module "db" {
-  depends_on = [ module.vpc ]
+  depends_on = [module.vpc]
   source = "./modules/ec2"
 
 

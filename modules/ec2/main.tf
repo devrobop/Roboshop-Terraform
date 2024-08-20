@@ -97,8 +97,8 @@ resource "aws_route53_record" "instance" {
   zone_id = var.zone_id
   name    = "${var.name}.${var.env}"
   type    = "A"
-  ttl = 20
-  records = [aws.instance.main.*.private_ip[count.index]]
+  ttl     = 10
+  records = [aws.instance.main.private_ip[count.index]]
 }
 
 resource "aws_security_group" "load_balancer" {
@@ -133,7 +133,7 @@ resource "aws_lb" "main" {
   name                 = "${var.name}-${var.env}"
   internal             = var.internal
   load_balancer_type   = "application"
-  security_groups      = [aws_security_group.load-balancer.*.id[count.index]]
+  security_groups      = [aws_security_group.load-balancer.id[count.index]]
   subnets              = var.lb_subnet_ids
 
  

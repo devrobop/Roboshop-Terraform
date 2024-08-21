@@ -54,7 +54,7 @@ module "db" {
 }
 
 module "load-balancers" {
-  source = "./modules/loadbalancers"
+  source = "./modules/load balancers"
 
   for_each           = var.load_balancers
   name               = each.key

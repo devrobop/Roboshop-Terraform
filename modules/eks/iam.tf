@@ -1,11 +1,9 @@
 ##  IAM for EKS
 
-
-#  assume_role_policy = data.aws_iam_policy_document.assume_role.json
-# rather than data policy we had taken different approach in line no 9
-
-resource "aws_iam_role" "eks-cluster-role" {
+resource "aws_iam_role" "eks-cluster" {
   name               = "${var.env}-eks-cluster-role"
+
+  
   assume_role_policy = jsonencode({
     version = "2012-10-17"
     Statement = [

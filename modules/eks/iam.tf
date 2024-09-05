@@ -1,20 +1,18 @@
-##  IAM for EKS
-
+## IAM for EKS
 resource "aws_iam_role" "eks-cluster" {
-  name               = "${var.env}-eks-cluster-role"
-
+  name = "${var.env}-eks-cluster-role"
 
   assume_role_policy = jsonencode({
-    version = "2012-10-17"
+    Version = "2012-10-17"
     Statement = [
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Service = "eks.amazonaws.com"  
+          Service = "eks.amazonaws.com"
         }
-      }  
+      },
     ]
   })
 }

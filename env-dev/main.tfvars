@@ -40,3 +40,14 @@ vpc = {
 #     allow_sg_cidr = ["10.10.4.0/24", "10.10.5.0/24"]
 #   }
 # }
+
+eks = { 
+  node_groups = {
+    main-spot = {
+       max_size = 3
+       min_size = 1
+       instance_types = ["t3.medium"]
+       capacity_types = "SPOT"
+    }
+  } 
+}

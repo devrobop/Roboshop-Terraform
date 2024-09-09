@@ -52,4 +52,9 @@ eks = {
        capacity_types = "SPOT"
     }
   } 
+
+
+add_ons = {
+  vpc-cni = "v1.18.3-eksbuild.2"
+  } 
 }

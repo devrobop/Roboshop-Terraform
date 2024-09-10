@@ -42,7 +42,7 @@ vpc = {
 # }
 
 eks = { 
-  eks_version = 1.31
+  eks_version = 1.30
 
   node_groups = {
     main-spot = {
@@ -55,6 +55,9 @@ eks = {
 
 
 add_ons = {
-  vpc-cni = "v1.18.3-eksbuild.2"
+  vpc-cni                = "v1.18.3-eksbuild.2"
+  kube-proxy             = "v1.30.3-eksbuild.2"
+  coredns                = "v1.11.1-eksbuild.11"
+  eks-pod-identity-agent = "v1.3.2-eksbuild.2"
   } 
 }

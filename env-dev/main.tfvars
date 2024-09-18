@@ -1,6 +1,6 @@
 env           = "dev"
 bastion_nodes = ["172.31.42.144/32"]
-zone_id       = "Z07887863W5D2X6RVH2WV"
+zone_id       = "Z10300637K33JCU2F9K6"
 
 vpc = {
   cidr               = "10.10.0.0/16"
@@ -9,8 +9,8 @@ vpc = {
   app_subnets        = ["10.10.4.0/24", "10.10.5.0/24"]
   db_subnets         = ["10.10.6.0/24", "10.10.7.0/24"]
   availability_zones = ["us-east-1a", "us-east-1b"]
-  default_vpc_id     = "vpc-0bd276ee11be2cff2"
-  default_vpc_rt     = "rtb-0bcac8ae29a00e902"
+  default_vpc_id     = "vpc-001131a46176936d5"
+  default_vpc_rt     = "rtb-0b6779b27b70c7764"
   default_vpc_cidr   = "172.31.0.0/16"
 }
 
